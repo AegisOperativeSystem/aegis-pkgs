@@ -9,24 +9,29 @@ depends=(gtk4 arch-install-scripts dosfstools e2fsprogs btrfs-progs gptfdisk)
 makedepends=(rust cargo pkgconf)
 options=('!debug')
 
-prepare() {
-  rm -rf aegis-os
+_tree() {
   if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
-    mkdir aegis-os
-    cp -a "${AEGIS_OS_PATH}/." aegis-os/
-    rm -rf aegis-os/target
+    printf '%s\n' "${AEGIS_OS_PATH}"
   else
-    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+    printf '%s\n' "${srcdir}/aegis-os"
   fi
 }
 
+prepare() {
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    return
+  fi
+  rm -rf aegis-os
+  git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+}
+
 build() {
-  cd aegis-os
+  cd "$(_tree)"
   cargo build --locked --release -p aegis-installer
 }
 
 package() {
-  cd aegis-os
+  cd "$(_tree)"
   install -Dm755 target/release/aegis-installer "${pkgdir}/usr/bin/aegis-installer"
   install -Dm644 session/applications/aegis-installer.desktop \
     "${pkgdir}/usr/share/applications/aegis-installer.desktop"

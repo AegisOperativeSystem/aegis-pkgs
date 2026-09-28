@@ -8,25 +8,33 @@ license=(GPL-3.0-only)
 depends=(aegis-shell aegis-dock aegis-tour labwc swaybg foot polkit-gnome pipewire wireplumber)
 makedepends=(git)
 
-prepare() {
-  rm -rf aegis-os
+_tree() {
   if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
-    mkdir aegis-os
-    cp -a "${AEGIS_OS_PATH}/." aegis-os/
+    printf '%s\n' "${AEGIS_OS_PATH}"
   else
-    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+    printf '%s\n' "${srcdir}/aegis-os"
   fi
 }
 
+prepare() {
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    return
+  fi
+  rm -rf aegis-os
+  git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+}
+
 package() {
-  install -Dm755 aegis-os/session/bin/aegis-session "${pkgdir}/usr/bin/aegis-session"
-  install -Dm755 aegis-os/session/xdg/labwc/autostart "${pkgdir}/etc/xdg/labwc/autostart"
-  install -Dm644 aegis-os/session/xdg/labwc/rc.xml "${pkgdir}/etc/xdg/labwc/rc.xml"
-  install -Dm644 aegis-os/session/xdg/labwc/environment "${pkgdir}/etc/xdg/labwc/environment"
-  install -Dm644 aegis-os/session/themes/aegis/openbox-3/themerc \
+  local tree
+  tree="$(_tree)"
+  install -Dm755 "${tree}/session/bin/aegis-session" "${pkgdir}/usr/bin/aegis-session"
+  install -Dm755 "${tree}/session/xdg/labwc/autostart" "${pkgdir}/etc/xdg/labwc/autostart"
+  install -Dm644 "${tree}/session/xdg/labwc/rc.xml" "${pkgdir}/etc/xdg/labwc/rc.xml"
+  install -Dm644 "${tree}/session/xdg/labwc/environment" "${pkgdir}/etc/xdg/labwc/environment"
+  install -Dm644 "${tree}/session/themes/aegis/openbox-3/themerc" \
     "${pkgdir}/usr/share/themes/aegis/openbox-3/themerc"
-  install -Dm644 aegis-os/session/foot/foot.ini "${pkgdir}/etc/xdg/foot/foot.ini"
-  install -Dm644 aegis-os/session/wayland-sessions/aegis.desktop \
+  install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/etc/xdg/foot/foot.ini"
+  install -Dm644 "${tree}/session/wayland-sessions/aegis.desktop" \
     "${pkgdir}/usr/share/wayland-sessions/aegis.desktop"
   install -Dm644 "${startdir}/os-release" "${pkgdir}/usr/lib/aegis/os-release"
   install -Dm755 "${startdir}/write-os-release" "${pkgdir}/usr/share/aegis/write-os-release"

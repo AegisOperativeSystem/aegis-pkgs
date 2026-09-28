@@ -9,24 +9,29 @@ depends=(gtk4)
 makedepends=(rust cargo pkgconf)
 options=('!debug')
 
-prepare() {
-  rm -rf aegis-os
+_tree() {
   if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
-    mkdir aegis-os
-    cp -a "${AEGIS_OS_PATH}/." aegis-os/
-    rm -rf aegis-os/target
+    printf '%s\n' "${AEGIS_OS_PATH}"
   else
-    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+    printf '%s\n' "${srcdir}/aegis-os"
   fi
 }
 
+prepare() {
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    return
+  fi
+  rm -rf aegis-os
+  git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+}
+
 build() {
-  cd aegis-os
+  cd "$(_tree)"
   cargo build --locked --release -p aegis-tour
 }
 
 package() {
-  cd aegis-os
+  cd "$(_tree)"
   install -Dm755 target/release/aegis-tour "${pkgdir}/usr/bin/aegis-tour"
   install -Dm644 components/aegis-tour/assets/style.css "${pkgdir}/usr/share/aegis/tour/style.css"
   install -Dm644 session/applications/aegis-tour.desktop \
