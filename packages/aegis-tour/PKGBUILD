@@ -1,11 +1,11 @@
-pkgname=aegis-shell
+pkgname=aegis-tour
 pkgver=1.0.0
 pkgrel=1
-pkgdesc='Aegis desktop shell'
+pkgdesc='Aegis first-run tour'
 arch=(x86_64)
 url='https://github.com/AegisOperativeSystem/aegis-os'
 license=(GPL-3.0-only)
-depends=(gtk4 gtk4-layer-shell)
+depends=(gtk4)
 makedepends=(rust cargo pkgconf)
 options=('!debug')
 
@@ -22,11 +22,13 @@ prepare() {
 
 build() {
   cd aegis-os
-  cargo build --locked --release -p aegis-shell
+  cargo build --locked --release -p aegis-tour
 }
 
 package() {
   cd aegis-os
-  install -Dm755 target/release/aegis-shell "${pkgdir}/usr/bin/aegis-shell"
-  install -Dm644 components/aegis-shell/assets/style.css "${pkgdir}/usr/share/aegis/shell/style.css"
+  install -Dm755 target/release/aegis-tour "${pkgdir}/usr/bin/aegis-tour"
+  install -Dm644 components/aegis-tour/assets/style.css "${pkgdir}/usr/share/aegis/tour/style.css"
+  install -Dm644 session/applications/aegis-tour.desktop \
+    "${pkgdir}/usr/share/applications/aegis-tour.desktop"
 }

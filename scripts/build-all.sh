@@ -18,9 +18,20 @@ if [[ "$(id -u)" -eq 0 ]]; then
   exec su builder -c "AEGIS_OS_PATH='${AEGIS_OS_PATH:-}' '${root}/scripts/build-all.sh' '${dest}'"
 fi
 
-for dir in "${root}/packages"/*; do
+order=(
+  aegis-keyring
+  aegis-mirrorlist
+  aegis-shell
+  aegis-dock
+  aegis-tour
+  aegis-pkg
+  aegis-installer
+  aegis-session
+)
+for name in "${order[@]}"; do
+  dir="${root}/packages/${name}"
   [[ -f "${dir}/PKGBUILD" ]] || continue
-  (cd "${dir}" && makepkg -f --noconfirm --skipchecksums)
+  (cd "${dir}" && makepkg -f --noconfirm --skipchecksums --nodeps)
   cp -a "${dir}"/*.pkg.tar.zst "${dest}/"
   rm -rf "${dir}/src" "${dir}/pkg"
 done
