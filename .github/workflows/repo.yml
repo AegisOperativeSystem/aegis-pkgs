@@ -1,0 +1,33 @@
+name: repository
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "packages/**"
+      - "scripts/**"
+      - ".github/workflows/repo.yml"
+  repository_dispatch:
+    types: [index-kernel]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build packages and publish the repository index
+        env:
+          AEGIS_KERNEL_TAG: ${{ github.event.client_payload.tag }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          docker run --rm \
+            -v "$PWD":/src \
+            -w /src \
+            -e AEGIS_KERNEL_TAG \
+            -e GH_TOKEN \
+            archlinux:base-devel \
+            bash -lc 'pacman -Syu --noconfirm --needed base-devel sudo git rust cargo pkgconf gtk4 gtk4-layer-shell github-cli && ./scripts/build-all.sh /src/repo/x86_64 && ./scripts/publish-repo.sh'

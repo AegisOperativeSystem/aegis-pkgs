@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+if ! grep -q '^\[aegis\]$' /etc/pacman.conf; then
+  cat >> /etc/pacman.conf <<'EOF'
+
+[aegis]
+SigLevel = Optional TrustAll
+Include = /etc/pacman.d/aegis-mirrorlist
+EOF
+fi

@@ -1,0 +1,37 @@
+pkgname=aegis-installer
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Aegis graphical live installer'
+arch=(x86_64)
+url='https://github.com/AegisOperativeSystem/aegis-os'
+license=(GPL-3.0-only)
+depends=(gtk4 arch-install-scripts dosfstools e2fsprogs btrfs-progs gptfdisk)
+makedepends=(rust cargo pkgconf)
+options=('!debug')
+
+prepare() {
+  rm -rf aegis-os
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    mkdir aegis-os
+    cp -a "${AEGIS_OS_PATH}/." aegis-os/
+    rm -rf aegis-os/target
+  else
+    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+  fi
+}
+
+build() {
+  cd aegis-os
+  cargo build --locked --release -p aegis-installer
+}
+
+package() {
+  cd aegis-os
+  install -Dm755 target/release/aegis-installer "${pkgdir}/usr/bin/aegis-installer"
+  install -Dm644 session/applications/aegis-installer.desktop \
+    "${pkgdir}/usr/share/applications/aegis-installer.desktop"
+  install -Dm644 session/polkit/org.aegis.install.policy \
+    "${pkgdir}/usr/share/polkit-1/actions/org.aegis.install.policy"
+  install -Dm644 session/polkit/10-aegis-installer.rules \
+    "${pkgdir}/usr/share/polkit-1/rules.d/10-aegis-installer.rules"
+}

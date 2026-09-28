@@ -1,0 +1,20 @@
+pkgname=aegis-mirrorlist
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Aegis pacman mirror list'
+arch=(any)
+url='https://github.com/AegisOperativeSystem/aegis-pkgs'
+license=(GPL-3.0-only)
+depends=(pacman)
+
+package() {
+  install -Dm644 "${startdir}/aegis-mirrorlist" "${pkgdir}/etc/pacman.d/aegis-mirrorlist"
+  install -Dm755 "${startdir}/enable-repo" "${pkgdir}/usr/share/aegis/enable-repo"
+  install -Dm644 "${startdir}/enable-repo.hook" \
+    "${pkgdir}/usr/share/libalpm/hooks/aegis-enable-repo.hook"
+  install -Dm644 /dev/stdin "${pkgdir}/usr/share/aegis/pacman/aegis-signed.conf" <<'EOF'
+[aegis]
+SigLevel = Required
+Include = /etc/pacman.d/aegis-mirrorlist
+EOF
+}

@@ -1,0 +1,35 @@
+pkgname=aegis-session
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Aegis Wayland session'
+arch=(x86_64)
+url='https://github.com/AegisOperativeSystem/aegis-os'
+license=(GPL-3.0-only)
+depends=(aegis-shell labwc swaybg foot polkit-gnome pipewire wireplumber)
+makedepends=(git)
+
+prepare() {
+  rm -rf aegis-os
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    mkdir aegis-os
+    cp -a "${AEGIS_OS_PATH}/." aegis-os/
+  else
+    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+  fi
+}
+
+package() {
+  install -Dm755 aegis-os/session/bin/aegis-session "${pkgdir}/usr/bin/aegis-session"
+  install -Dm755 aegis-os/session/xdg/labwc/autostart "${pkgdir}/etc/xdg/labwc/autostart"
+  install -Dm644 aegis-os/session/xdg/labwc/rc.xml "${pkgdir}/etc/xdg/labwc/rc.xml"
+  install -Dm644 aegis-os/session/xdg/labwc/environment "${pkgdir}/etc/xdg/labwc/environment"
+  install -Dm644 aegis-os/session/themes/aegis/openbox-3/themerc \
+    "${pkgdir}/usr/share/themes/aegis/openbox-3/themerc"
+  install -Dm644 aegis-os/session/foot/foot.ini "${pkgdir}/etc/xdg/foot/foot.ini"
+  install -Dm644 aegis-os/session/wayland-sessions/aegis.desktop \
+    "${pkgdir}/usr/share/wayland-sessions/aegis.desktop"
+  install -Dm644 "${startdir}/os-release" "${pkgdir}/usr/lib/aegis/os-release"
+  install -Dm755 "${startdir}/write-os-release" "${pkgdir}/usr/share/aegis/write-os-release"
+  install -Dm644 "${startdir}/os-release.hook" \
+    "${pkgdir}/usr/share/libalpm/hooks/aegis-os-release.hook"
+}

@@ -1,0 +1,22 @@
+pkgname=aegis-keyring
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Aegis pacman package signing keyring'
+arch=(any)
+url='https://github.com/AegisOperativeSystem/aegis-pkgs'
+license=(GPL-3.0-only)
+
+package() {
+  local keydir="${pkgdir}/usr/share/pacman/keyrings"
+  install -d "${keydir}"
+  if [[ -f "${startdir}/../../keys/aegis.gpg" ]]; then
+    install -m644 "${startdir}/../../keys/aegis.gpg" "${keydir}/aegis.gpg"
+    install -m644 "${startdir}/../../keys/aegis-trusted" "${keydir}/aegis-trusted"
+    install -m644 "${startdir}/../../keys/aegis-revoked" "${keydir}/aegis-revoked"
+  else
+    : > "${keydir}/aegis.gpg"
+    : > "${keydir}/aegis-trusted"
+    : > "${keydir}/aegis-revoked"
+    printf 'Aegis keyring material is not present yet.\n' >&2
+  fi
+}

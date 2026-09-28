@@ -1,0 +1,7 @@
+*.pkg.tar.zst
+*.pkg.tar.zst.sig
+repo/x86_64/*
+!repo/x86_64/.gitkeep
+packages/*/src/
+packages/*/pkg/
+.DS_Store

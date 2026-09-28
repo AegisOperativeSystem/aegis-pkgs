@@ -1,0 +1,32 @@
+pkgname=aegis-shell
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Aegis desktop shell'
+arch=(x86_64)
+url='https://github.com/AegisOperativeSystem/aegis-os'
+license=(GPL-3.0-only)
+depends=(gtk4 gtk4-layer-shell)
+makedepends=(rust cargo pkgconf)
+options=('!debug')
+
+prepare() {
+  rm -rf aegis-os
+  if [[ -n "${AEGIS_OS_PATH:-}" ]]; then
+    mkdir aegis-os
+    cp -a "${AEGIS_OS_PATH}/." aegis-os/
+    rm -rf aegis-os/target
+  else
+    git clone --depth 1 --branch main https://github.com/AegisOperativeSystem/aegis-os.git aegis-os
+  fi
+}
+
+build() {
+  cd aegis-os
+  cargo build --locked --release -p aegis-shell
+}
+
+package() {
+  cd aegis-os
+  install -Dm755 target/release/aegis-shell "${pkgdir}/usr/bin/aegis-shell"
+  install -Dm644 components/aegis-shell/assets/style.css "${pkgdir}/usr/share/aegis/shell/style.css"
+}

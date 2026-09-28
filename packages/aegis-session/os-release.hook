@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = aegis-session
+
+[Action]
+Description = Writing the Aegis OS release identity
+When = PostTransaction
+Exec = /usr/share/aegis/write-os-release
+Depends = aegis-session

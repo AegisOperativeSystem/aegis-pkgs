@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = aegis-mirrorlist
+
+[Action]
+Description = Enabling the Aegis package repository
+When = PostTransaction
+Exec = /usr/share/aegis/enable-repo
+Depends = aegis-mirrorlist
