@@ -1,5 +1,5 @@
 pkgname=aegis-tour
-pkgver=1.0.14
+pkgver=1.0.15
 pkgrel=1
 pkgdesc='Aegis first-run tour'
 arch=(x86_64)

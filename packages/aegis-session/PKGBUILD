@@ -1,11 +1,11 @@
 pkgname=aegis-session
-pkgver=1.0.14
+pkgver=1.0.15
 pkgrel=1
 pkgdesc='Aegis desktop session'
 arch=(x86_64)
 url='https://github.com/AegisOperativeSystem/aegis-os'
 license=(GPL-3.0-only)
-depends=(aegis-tour gnome-flashback dconf gnome-themes-extra xorg-server xorg-xinit xorg-setxkbmap foot polkit-gnome pipewire wireplumber fastfetch)
+depends=(gnome-shell gnome-session gnome-tour gdm gnome-tweaks dconf mesa pipewire wireplumber fastfetch)
 makedepends=(git)
 
 _tree() {
@@ -34,7 +34,6 @@ package() {
   install -Dm644 "${tree}/session/fastfetch.jsonc" "${pkgdir}/etc/fastfetch/config.jsonc"
   install -Dm644 "${tree}/session/profile.sh" "${pkgdir}/etc/profile.d/aegis.sh"
   install -Dm644 "${tree}/session/bashrc" "${pkgdir}/usr/share/aegis/bashrc"
-  install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-3.0/settings.ini"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-4.0/settings.ini"
   install -Dm755 "${tree}/session/bin/aegis-first-login" "${pkgdir}/usr/bin/aegis-first-login"
   install -Dm755 "${tree}/session/bin/aegis-services" "${pkgdir}/usr/bin/aegis-services"
@@ -43,16 +42,9 @@ package() {
   install -Dm644 "${tree}/session/xdg/autostart/aegis-services.desktop" \
     "${pkgdir}/etc/xdg/autostart/aegis-services.desktop"
   install -Dm644 "${tree}/session/dconf/01-aegis" "${pkgdir}/etc/dconf/db/local.d/01-aegis"
-  install -Dm644 "${tree}/session/themes/aegis/index.theme" \
-    "${pkgdir}/usr/share/themes/Aegis/index.theme"
-  install -Dm644 "${tree}/session/themes/aegis/gtk-3.0/gtk.css" \
-    "${pkgdir}/usr/share/themes/Aegis/gtk-3.0/gtk.css"
-  install -Dm644 "${tree}/session/themes/aegis/gtk-4.0/gtk.css" \
-    "${pkgdir}/usr/share/themes/Aegis/gtk-4.0/gtk.css"
-  install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/usr/share/aegis/foot.ini"
+  install -Dm644 "${tree}/session/wayland-sessions/aegis.desktop" \
+    "${pkgdir}/usr/share/wayland-sessions/aegis.desktop"
   install -Dm644 "${tree}/session/background.png" "${pkgdir}/usr/share/aegis/background.png"
-  install -Dm644 "${tree}/session/xsessions/aegis.desktop" \
-    "${pkgdir}/usr/share/xsessions/aegis.desktop"
   install -Dm644 "${startdir}/os-release" "${pkgdir}/usr/lib/aegis/os-release"
   install -Dm755 "${startdir}/write-os-release" "${pkgdir}/usr/share/aegis/write-os-release"
   install -Dm644 "${startdir}/os-release.hook" \
