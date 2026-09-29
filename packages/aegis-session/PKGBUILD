@@ -1,5 +1,5 @@
 pkgname=aegis-session
-pkgver=1.0.15
+pkgver=1.0.16
 pkgrel=1
 pkgdesc='Aegis desktop session'
 arch=(x86_64)
@@ -30,6 +30,12 @@ package() {
   install -Dm755 "${tree}/session/bin/aegis-session" "${pkgdir}/usr/bin/aegis-session"
   install -Dm755 "${tree}/session/bin/aegis-desktop" "${pkgdir}/usr/bin/aegis-desktop"
   install -Dm755 "${tree}/session/bin/aegis-menu" "${pkgdir}/usr/bin/aegis-menu"
+  install -Dm755 "${tree}/session/bin/aegis-chooser" "${pkgdir}/usr/bin/aegis-chooser"
+  install -Dm755 "${tree}/session/bin/aegis-gl" "${pkgdir}/usr/bin/aegis-gl"
+  install -Dm644 "${tree}/session/systemd/aegis-chooser.service" \
+    "${pkgdir}/usr/lib/systemd/system/aegis-chooser.service"
+  install -Dm644 "${tree}/session/systemd/aegis-gl.service" \
+    "${pkgdir}/usr/lib/systemd/system/aegis-gl.service"
   install -Dm644 "${tree}/session/logo.txt" "${pkgdir}/usr/share/aegis/logo.txt"
   install -Dm644 "${tree}/session/fastfetch.jsonc" "${pkgdir}/etc/fastfetch/config.jsonc"
   install -Dm644 "${tree}/session/profile.sh" "${pkgdir}/etc/profile.d/aegis.sh"

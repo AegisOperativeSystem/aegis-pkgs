@@ -1,5 +1,5 @@
 pkgname=aegis-mirrorlist
-pkgver=1.0.15
+pkgver=1.0.16
 pkgrel=1
 pkgdesc='Aegis pacman mirror list'
 arch=(any)
