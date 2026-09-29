@@ -1,5 +1,5 @@
 pkgname=aegis-tour
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc='Aegis first-run tour'
 arch=(x86_64)
@@ -33,6 +33,7 @@ build() {
 package() {
   cd "$(_tree)"
   install -Dm755 target/release/aegis-tour "${pkgdir}/usr/bin/aegis-tour"
+  install -Dm755 target/release/aegis-welcome "${pkgdir}/usr/bin/aegis-welcome"
   install -Dm644 components/aegis-tour/assets/style.css "${pkgdir}/usr/share/aegis/tour/style.css"
   install -Dm644 session/applications/aegis-tour.desktop \
     "${pkgdir}/usr/share/applications/aegis-tour.desktop"
