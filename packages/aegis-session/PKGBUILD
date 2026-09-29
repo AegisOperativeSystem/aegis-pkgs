@@ -1,5 +1,5 @@
 pkgname=aegis-session
-pkgver=1.0.10
+pkgver=1.0.11
 pkgrel=1
 pkgdesc='Aegis Wayland session'
 arch=(x86_64)
@@ -32,7 +32,6 @@ package() {
   install -Dm644 "${tree}/session/logo.txt" "${pkgdir}/usr/share/aegis/logo.txt"
   install -Dm644 "${tree}/session/fastfetch.jsonc" "${pkgdir}/etc/fastfetch/config.jsonc"
   install -Dm644 "${tree}/session/profile.sh" "${pkgdir}/etc/profile.d/aegis.sh"
-  install -Dm644 "${tree}/session/bashrc" "${pkgdir}/etc/skel/.bashrc"
   install -Dm644 "${tree}/session/bashrc" "${pkgdir}/usr/share/aegis/bashrc"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-3.0/settings.ini"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-4.0/settings.ini"
