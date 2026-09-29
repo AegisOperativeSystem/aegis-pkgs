@@ -7,3 +7,6 @@ cp /etc/issue /etc/issue.net
 if [ -f /usr/share/aegis/bashrc ]; then
   cp /usr/share/aegis/bashrc /etc/skel/.bashrc
 fi
+if command -v dconf >/dev/null 2>&1; then
+  dconf update
+fi
