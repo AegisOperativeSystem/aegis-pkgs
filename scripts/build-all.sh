@@ -37,6 +37,7 @@ for name in "${order[@]}"; do
 done
 
 repo-add -R "${dest}/aegis.db.tar.zst" "${dest}"/*.pkg.tar.zst
+rm -f "${dest}/aegis.db" "${dest}/aegis.files"
 cp -f "${dest}/aegis.db.tar.zst" "${dest}/aegis.db"
 cp -f "${dest}/aegis.files.tar.zst" "${dest}/aegis.files"
 echo "repository index written to ${dest}"

@@ -28,6 +28,7 @@ rm -f "${repo_dir}/aegis.db" "${repo_dir}/aegis.db.tar.zst" \
   "${repo_dir}/aegis.files" "${repo_dir}/aegis.files.tar.zst" \
   "${repo_dir}/aegis.db.sig" "${repo_dir}/aegis.files.sig"
 repo-add -R "${repo_dir}/aegis.db.tar.zst" "${packages[@]}"
+rm -f "${repo_dir}/aegis.db" "${repo_dir}/aegis.files"
 cp -f "${repo_dir}/aegis.db.tar.zst" "${repo_dir}/aegis.db"
 cp -f "${repo_dir}/aegis.files.tar.zst" "${repo_dir}/aegis.files"
 
