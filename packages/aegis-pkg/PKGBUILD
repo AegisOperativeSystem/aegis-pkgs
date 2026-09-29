@@ -1,5 +1,5 @@
 pkgname=aegis-pkg
-pkgver=1.0.11
+pkgver=1.0.12
 pkgrel=1
 pkgdesc='Aegis package client'
 arch=(x86_64)

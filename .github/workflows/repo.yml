@@ -30,4 +30,4 @@ jobs:
             -e AEGIS_KERNEL_TAG \
             -e GH_TOKEN \
             archlinux:base-devel \
-            bash -lc 'pacman -Syu --noconfirm --needed base-devel sudo git rust cargo pkgconf gtk4 gtk4-layer-shell github-cli && ./scripts/build-all.sh /src/repo/x86_64 && ./scripts/publish-repo.sh'
+            bash -lc 'pacman -Syu --noconfirm --needed base-devel sudo git rust cargo pkgconf gtk4 github-cli && ./scripts/build-all.sh /src/repo/x86_64 && ./scripts/publish-repo.sh'

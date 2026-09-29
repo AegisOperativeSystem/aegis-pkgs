@@ -1,11 +1,11 @@
 pkgname=aegis-session
-pkgver=1.0.11
+pkgver=1.0.12
 pkgrel=1
-pkgdesc='Aegis Wayland session'
+pkgdesc='Aegis desktop session'
 arch=(x86_64)
 url='https://github.com/AegisOperativeSystem/aegis-os'
 license=(GPL-3.0-only)
-depends=(aegis-shell aegis-dock aegis-tour labwc swaybg foot polkit-gnome pipewire wireplumber fastfetch)
+depends=(aegis-shell aegis-dock aegis-tour openbox xorg-server xorg-xinit xorg-setxkbmap feh foot polkit-gnome pipewire wireplumber fastfetch)
 makedepends=(git)
 
 _tree() {
@@ -28,6 +28,7 @@ package() {
   local tree
   tree="$(_tree)"
   install -Dm755 "${tree}/session/bin/aegis-session" "${pkgdir}/usr/bin/aegis-session"
+  install -Dm755 "${tree}/session/bin/aegis-desktop" "${pkgdir}/usr/bin/aegis-desktop"
   install -Dm755 "${tree}/session/bin/aegis-menu" "${pkgdir}/usr/bin/aegis-menu"
   install -Dm644 "${tree}/session/logo.txt" "${pkgdir}/usr/share/aegis/logo.txt"
   install -Dm644 "${tree}/session/fastfetch.jsonc" "${pkgdir}/etc/fastfetch/config.jsonc"
@@ -35,15 +36,14 @@ package() {
   install -Dm644 "${tree}/session/bashrc" "${pkgdir}/usr/share/aegis/bashrc"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-3.0/settings.ini"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-4.0/settings.ini"
-  install -Dm755 "${tree}/session/xdg/labwc/autostart" "${pkgdir}/etc/xdg/labwc/autostart"
-  install -Dm644 "${tree}/session/xdg/labwc/rc.xml" "${pkgdir}/etc/xdg/labwc/rc.xml"
-  install -Dm644 "${tree}/session/xdg/labwc/environment" "${pkgdir}/etc/xdg/labwc/environment"
+  install -Dm755 "${tree}/session/xdg/openbox/autostart" "${pkgdir}/etc/xdg/openbox/autostart"
+  install -Dm644 "${tree}/session/xdg/openbox/rc.xml" "${pkgdir}/etc/xdg/openbox/rc.xml"
   install -Dm644 "${tree}/session/themes/aegis/openbox-3/themerc" \
     "${pkgdir}/usr/share/themes/aegis/openbox-3/themerc"
   install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/usr/share/aegis/foot.ini"
   install -Dm644 "${tree}/session/background.png" "${pkgdir}/usr/share/aegis/background.png"
-  install -Dm644 "${tree}/session/wayland-sessions/aegis.desktop" \
-    "${pkgdir}/usr/share/wayland-sessions/aegis.desktop"
+  install -Dm644 "${tree}/session/xsessions/aegis.desktop" \
+    "${pkgdir}/usr/share/xsessions/aegis.desktop"
   install -Dm644 "${startdir}/os-release" "${pkgdir}/usr/lib/aegis/os-release"
   install -Dm755 "${startdir}/write-os-release" "${pkgdir}/usr/share/aegis/write-os-release"
   install -Dm644 "${startdir}/os-release.hook" \

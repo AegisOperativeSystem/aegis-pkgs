@@ -1,11 +1,11 @@
 pkgname=aegis-dock
-pkgver=1.0.11
+pkgver=1.0.12
 pkgrel=1
 pkgdesc='Aegis desktop dock'
 arch=(x86_64)
 url='https://github.com/AegisOperativeSystem/aegis-os'
 license=(GPL-3.0-only)
-depends=(gtk4 gtk4-layer-shell adwaita-icon-theme)
+depends=(gtk4 adwaita-icon-theme)
 makedepends=(rust cargo pkgconf)
 options=('!debug')
 
