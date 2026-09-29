@@ -1,5 +1,5 @@
 pkgname=aegis-keyring
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Aegis pacman package signing keyring'
 arch=(any)

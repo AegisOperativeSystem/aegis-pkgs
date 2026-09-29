@@ -1,5 +1,5 @@
 pkgname=aegis-session
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Aegis Wayland session'
 arch=(x86_64)
@@ -33,7 +33,7 @@ package() {
   install -Dm644 "${tree}/session/xdg/labwc/environment" "${pkgdir}/etc/xdg/labwc/environment"
   install -Dm644 "${tree}/session/themes/aegis/openbox-3/themerc" \
     "${pkgdir}/usr/share/themes/aegis/openbox-3/themerc"
-  install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/etc/xdg/foot/foot.ini"
+  install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/usr/share/aegis/foot.ini"
   install -Dm644 "${tree}/session/wayland-sessions/aegis.desktop" \
     "${pkgdir}/usr/share/wayland-sessions/aegis.desktop"
   install -Dm644 "${startdir}/os-release" "${pkgdir}/usr/lib/aegis/os-release"
