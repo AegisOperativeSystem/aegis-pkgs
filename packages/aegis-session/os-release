@@ -1,9 +1,9 @@
 NAME="Aegis OS"
-PRETTY_NAME="Aegis OS 1.0.8"
-VERSION="1.0.8"
-VERSION_ID="1.0.8"
+PRETTY_NAME="Aegis OS 1.0.9"
+VERSION="1.0.9"
+VERSION_ID="1.0.9"
 ID=aegis
-ID_LIKE=arch
+ANSI_COLOR="1;36"
 HOME_URL="https://github.com/AegisOperativeSystem/aegis-os"
 DOCUMENTATION_URL="https://github.com/AegisOperativeSystem/aegis-os/blob/main/docs/integration.md"
 LOGO=aegis

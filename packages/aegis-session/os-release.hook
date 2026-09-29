@@ -3,6 +3,8 @@ Operation = Install
 Operation = Upgrade
 Type = Package
 Target = aegis-session
+Target = filesystem
+Target = bash
 
 [Action]
 Description = Writing the Aegis OS release identity

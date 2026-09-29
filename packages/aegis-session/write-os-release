@@ -1,3 +1,9 @@
 #!/bin/sh
 set -eu
 cp /usr/lib/aegis/os-release /etc/os-release
+rm -f /etc/arch-release /etc/lsb-release
+printf '%s\n' 'Aegis OS \r (\l)' >/etc/issue
+cp /etc/issue /etc/issue.net
+if [ -f /usr/share/aegis/bashrc ]; then
+  cp /usr/share/aegis/bashrc /etc/skel/.bashrc
+fi
