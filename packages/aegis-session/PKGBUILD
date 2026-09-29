@@ -1,5 +1,5 @@
 pkgname=aegis-session
-pkgver=1.0.13
+pkgver=1.0.14
 pkgrel=1
 pkgdesc='Aegis desktop session'
 arch=(x86_64)
@@ -37,14 +37,17 @@ package() {
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-3.0/settings.ini"
   install -Dm644 "${tree}/session/gtk-settings.ini" "${pkgdir}/etc/gtk-4.0/settings.ini"
   install -Dm755 "${tree}/session/bin/aegis-first-login" "${pkgdir}/usr/bin/aegis-first-login"
+  install -Dm755 "${tree}/session/bin/aegis-services" "${pkgdir}/usr/bin/aegis-services"
   install -Dm644 "${tree}/session/xdg/autostart/aegis-first-login.desktop" \
     "${pkgdir}/etc/xdg/autostart/aegis-first-login.desktop"
+  install -Dm644 "${tree}/session/xdg/autostart/aegis-services.desktop" \
+    "${pkgdir}/etc/xdg/autostart/aegis-services.desktop"
   install -Dm644 "${tree}/session/dconf/01-aegis" "${pkgdir}/etc/dconf/db/local.d/01-aegis"
-  install -Dm644 "${tree}/session/themes/Aegis/index.theme" \
+  install -Dm644 "${tree}/session/themes/aegis/index.theme" \
     "${pkgdir}/usr/share/themes/Aegis/index.theme"
-  install -Dm644 "${tree}/session/themes/Aegis/gtk-3.0/gtk.css" \
+  install -Dm644 "${tree}/session/themes/aegis/gtk-3.0/gtk.css" \
     "${pkgdir}/usr/share/themes/Aegis/gtk-3.0/gtk.css"
-  install -Dm644 "${tree}/session/themes/Aegis/gtk-4.0/gtk.css" \
+  install -Dm644 "${tree}/session/themes/aegis/gtk-4.0/gtk.css" \
     "${pkgdir}/usr/share/themes/Aegis/gtk-4.0/gtk.css"
   install -Dm644 "${tree}/session/foot/foot.ini" "${pkgdir}/usr/share/aegis/foot.ini"
   install -Dm644 "${tree}/session/background.png" "${pkgdir}/usr/share/aegis/background.png"
