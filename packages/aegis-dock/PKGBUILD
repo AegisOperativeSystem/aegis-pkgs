@@ -1,5 +1,5 @@
 pkgname=aegis-dock
-pkgver=1.0.6
+pkgver=1.0.7
 pkgrel=1
 pkgdesc='Aegis desktop dock'
 arch=(x86_64)

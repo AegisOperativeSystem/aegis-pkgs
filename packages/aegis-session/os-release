@@ -1,7 +1,7 @@
 NAME="Aegis OS"
-PRETTY_NAME="Aegis OS 1.0.6"
-VERSION="1.0.6"
-VERSION_ID="1.0.6"
+PRETTY_NAME="Aegis OS 1.0.7"
+VERSION="1.0.7"
+VERSION_ID="1.0.7"
 ID=aegis
 ID_LIKE=arch
 HOME_URL="https://github.com/AegisOperativeSystem/aegis-os"
